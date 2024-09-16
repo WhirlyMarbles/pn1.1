@@ -31,7 +31,8 @@ import time
 
 # settings
 import json
-if not os.path.isfile("assets/picklnicker.json"):
+if not os.path.isfile("assets/picklenicker.json"):
+    print("Could not find existing picklnicker.json file, generating new from template")
     picklnickerjsontemplate = """{
   "highscore": 0,
   "difficulty": "normal",
