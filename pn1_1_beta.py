@@ -31,6 +31,18 @@ import time
 
 # settings
 import json
+if not os.path.isfile("assets/picklnicker.json"):
+    picklnickerjsontemplate = """{
+  "highscore": 0,
+  "difficulty": "normal",
+  "bgcolor": [
+    255,
+    255,
+    255
+  ]
+}"""
+    with open('assets/picklenicker.json', 'w') as file:
+        file.write(picklnickerjsontemplate)
 with open('assets/picklenicker.json', 'r') as file:
     settings = json.load(file)
 
