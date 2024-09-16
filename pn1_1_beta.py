@@ -479,12 +479,19 @@ def run():
 
         # render hp
         penx = 0
+        peny = 0
         for i in range(player.hp):
-            screen.blit(assets.heart, (penx, 0))
+            screen.blit(assets.heart, (penx, peny))
             penx += 16
+            if penx >= SW:
+                penx = 0
+                peny += 16
         for i in range(player.maxhp - player.hp):
-            screen.blit(assets.noheart, (penx, 0))
+            screen.blit(assets.noheart, (penx, peny))
             penx += 16
+            if penx >= SW:
+                penx = 0
+                peny += 16
         # render score
         scorestr = font.render(str(score), True, (255, 0, 0))
         screen.blit(scorestr, (SW - scorestr.get_width(), 0))
