@@ -123,6 +123,7 @@ class Player:
         self.hitbox = pygame.Rect(self.pos[0], self.pos[1], self.image.get_width(), self.image.get_height())
         self.direction = None
         self.hp = 10
+        self.maxhp = 10
         self.immune = False
         self.poweredup = False
     
@@ -227,7 +228,6 @@ def run():
     global debug
     global SW
     global SH
-    player = Player(assets.player)
 
     difficulty = get_picklenicker_json_attributes()["difficulty"]
     buttonplay = pygame.Rect(200, 300, 128, 70)
@@ -266,6 +266,8 @@ def run():
                     difficulty = "normal"
                 if event.key == pygame.K_3:
                     difficulty = "hard"
+                if event.key == pygame.K_0:
+                    difficulty = "HACKED!!!"
                 if event.key == pygame.K_q:
                     set_new_picklenicker_json_attributes(bgcolor=(random.randint(0, 255), 
                                                                   random.randint(0, 255), 
@@ -318,10 +320,17 @@ def run():
         num_of_bombs = 0
     difficulties_pickles = {"easy": 3,
                             "normal": 5,
-                            "hard": 10}
+                            "hard": 10,
+                            "HACKED!!!": 50}
     pickles = gen_pickles(difficulties_pickles[difficulty], num_of_bombs)
 
     powerup = WWW()
+
+    
+    player = Player(assets.player)
+    if difficulty == "HACKED!!!":
+        player.maxhp = 1000
+        player.hp = 1000
 
     x = player.x
     y = player.y
@@ -473,7 +482,7 @@ def run():
         for i in range(player.hp):
             screen.blit(assets.heart, (penx, 0))
             penx += 16
-        for i in range(10 - player.hp):
+        for i in range(player.maxhp - player.hp):
             screen.blit(assets.noheart, (penx, 0))
             penx += 16
         # render score
